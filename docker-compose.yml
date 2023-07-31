@@ -8,6 +8,7 @@ services:
     environment:
       EULA: "TRUE"
       VERSION: "${MINECRAFT_VERSION}"
+      TYPE: "SPIGOT"
     volumes:
       - minecraft_data:/data
 
@@ -22,7 +23,7 @@ services:
       PASV_MAX_PORT: "30009"
       FTP_USER_NAME: "${FTP_USER_NAME}"
       FTP_USER_PASS: "${FTP_USER_PASS}"
-      FTP_USER_HOME: "/home/ftpusers/mc"
+      FTP_USER_HOME: "${FTP_USER_HOME}"
     volumes:
       - minecraft_data:/home/ftpusers/mc
     user: root
