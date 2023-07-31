@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    ports:
+      - "${MINECRAFT_PORT}:25565"
+    environment:
+      EULA: "TRUE"
+      VERSION: "${MINECRAFT_VERSION}"
+    volumes:
+      - minecraft_data:/data
+
+  ftp:
+    image: stilliard/pure-ftpd
+    ports:
+      - "${FTP_PORT}:21"
+      - "30000-30009:30000-30009"
+    environment:
+      PUBLICHOST: "${PUBLICHOST}"
+      PASV_MIN_PORT: "30000"
+      PASV_MAX_PORT: "30009"
+      FTP_USER_NAME: "${FTP_USER_NAME}"
+      FTP_USER_PASS: "${FTP_USER_PASS}"
+      FTP_USER_HOME: "/home/ftpusers/mc"
+    volumes:
+      - minecraft_data:/home/ftpusers/mc
+    user: root
+
+volumes:
+  minecraft_data:
